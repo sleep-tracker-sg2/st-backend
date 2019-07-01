@@ -4,6 +4,8 @@
 
 # Backend Development Team
 
+>David Barrios
+>
 >Gina Christians
 >
 >David Martinson
