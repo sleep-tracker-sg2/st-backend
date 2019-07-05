@@ -1,0 +1,25 @@
+{
+  "name": "st-backend",
+  "version": "1.0.0",
+  "description": "API and db schema build for Sleep Tracker app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "null"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleep-tracker-sg2/st-backend.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "api"
+  ],
+  "author": "gina christians christiansgina@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sleep-tracker-sg2/st-backend/issues"
+  },
+  "homepage": "https://github.com/sleep-tracker-sg2/st-backend#readme",
+  "dependencies": {}
+}
