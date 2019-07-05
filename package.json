@@ -21,5 +21,7 @@
     "url": "https://github.com/sleep-tracker-sg2/st-backend/issues"
   },
   "homepage": "https://github.com/sleep-tracker-sg2/st-backend#readme",
-  "dependencies": {}
+  "dependencies": {
+    "knex": "^0.18.3"
+  }
 }
