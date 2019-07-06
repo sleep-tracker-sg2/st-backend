@@ -1,9 +1,11 @@
 
-export.seed=(knex,Promise) {
+exports.seed = function(knex, Promise) {
+  // Deletes ALL existing entries
   return knex('years').insert([
+
     {
-      "year": 2019,
-      "description": "2019"
+      "years": 2019,
+      "description":"2019"
     },
     {
       "year": 2020,
@@ -16,10 +18,6 @@ export.seed=(knex,Promise) {
     {
       "year": 2022,
       "description": "2022"
-    },
-    {
-      "year": 2023,
-      "description": "2023"
-    },
+    }
   ])
-}
+};
