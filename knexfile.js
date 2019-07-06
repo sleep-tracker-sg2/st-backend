@@ -5,40 +5,41 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './dev.sqlite3'
+      filename: './database/sleep_production.db3'
+    },
+    useNullAsDefault: true,
+    migrations: {
+      directory: "./database/migrations"
+    },
+    seeds: {
+      directory: ".database/seeds"
     }
   },
 
-  staging: {
-    client: 'postgresql',
+  test: {
+    client: 'sqlite3',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
+      filename: './database/sleep_test.db3',
+    },  
+   useNullAsDefault: true,
     migrations: {
-      tableName: 'knex_migrations'
-    }
-  },
-
-  production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      directory: './database/migrations'
     },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
+    seeds: {
+      directory: './database/seeds'
     }
   }
-
 };
+
+  /*production: {
+    client: 'pg',
+    connection: dbConnection,
+    migration: {
+      filename: "./database/migrations"
+    },
+    seeds: {
+      filename: "./database/seeds"
+    }
+  }
+};  */
+  

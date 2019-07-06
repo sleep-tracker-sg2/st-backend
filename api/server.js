@@ -17,7 +17,7 @@ server.use(cors());
 
 //server sanity check
 server.get('/', (req,res) => {
-    res.json("Interesting. You\'re afraid of insects and women. Ladybugs must render you catatonic.")
+    res.json({msg:"Interesting. You\'re afraid of insects and women. Ladybugs must render you catatonic."});
 });
 
 
