@@ -1,13 +1,25 @@
 
-exports.seed = function(knex) {
-  // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
-      // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
-      ]);
-    });
-};
+export.seed=(knex,Promise) {
+  return knex('years').insert([
+    {
+      "year": 2019,
+      "description": "2019"
+    },
+    {
+      "year": 2020,
+      "description": "2020"
+    },
+    {
+      "year": 2021,
+      "description": "2021"
+    },
+    {
+      "year": 2022,
+      "description": "2022"
+    },
+    {
+      "year": 2023,
+      "description": "2023"
+    },
+  ])
+}
