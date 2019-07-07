@@ -22,7 +22,7 @@ exports.up = function(knex) {
         .integer('year')
         .notNullable()
         .unsigned()
-        .references('year')
+        .references('sleepYear')
         .inTable('sleep_year')
         .onDelete('cascade')
         .onUpdate('cascade');
