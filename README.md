@@ -1,6 +1,8 @@
 # Sleep Tracker
 
 >Backend API build for Lambda School build week
+>
+>Please see project Wiki for build specifications
 
 # Backend Development Team
 
