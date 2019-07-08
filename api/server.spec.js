@@ -2,12 +2,10 @@
 const request=require('supertest');
 const server=require('./server.js');
 
-describe('server test: server.js', () => {
-
-    it('will run environment server tests', () => {
-        expect(process.env.DB_ENV).toBe('undefined');
-    });
-
+describe('server testing', () => {
+    /*it("TC1.1: Testing the environment", () => {
+      expect(process.env.DB_ENV).toBe("testing");
+    }); */
 
     it('test GET - will return 200 ok', async () => {
         const res=await request(server).get('/');
