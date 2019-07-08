@@ -15,11 +15,15 @@ server.use(helmet());
 server.use(morgan('combined'));
 server.use(cors());
 
+// Router Links
+const userRouter = require('../routes/user_routes');
+
 //server sanity check
 server.get('/', (req,res) => {
     res.json({msg:"Interesting. You\'re afraid of insects and women. Ladybugs must render you catatonic."});
 });
 
+server.use('/', userRouter )
 
 //don't forget to export module here
 module.exports=server;
