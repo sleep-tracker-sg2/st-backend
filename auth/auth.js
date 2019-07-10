@@ -11,7 +11,15 @@ module.exports = (req, res, next) => {
                 return res.status(401).json(err) 
             } else {
                 req.decoded = decoded;
-                next();
+                // checks params id with token user id if not equal then wrong user
+                if(req.params.id == req.decoded.subject || req.params.id === undefined) {
+                    next()
+                } else {
+                    res.status(401).json({
+                        message: 'Restricted path'
+                    })
+                }
+                // next();
             }
         })
     } else {

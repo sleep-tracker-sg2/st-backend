@@ -52,7 +52,7 @@ function getLimitOrder (id, limit, order) {
             user_id: id
         })
         .limit(limit)
-        .order('date', order)
+        .orderBy('date', order)
 }
 
 function getAnnual (id, year) {
@@ -64,26 +64,25 @@ function getAnnual (id, year) {
         .andWhere('sleep_emotion', '>', 3)
 }
  
-function update(id, stats, date) {
+function update(id, stats) {
     return db('sleep_stats')
         .where({
             user_id: id, 
             date: date
         })
         .update(stats)
-        .then(() => {
-            return db('sleep_stats')
-                .where({date: date})
-                .first()
-        })
+        // .then(() => {
+        //     return db('sleep_stats')
+        //         .where({date: date})
+        //         .first()
+        // })
 }
 
-function remove (id, date, year) {
+function remove (id, date) {
     return db('sleep_stats')
         .where({
             user_id: id, 
             date: date, 
-            year: year
         })
         .del()
 }

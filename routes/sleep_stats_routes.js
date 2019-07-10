@@ -2,19 +2,6 @@ const router = require('express').Router()
 const auth = require('../auth/auth')
 const statsDB = require('../models/sleep_stats_models')
 
-router.get('/:id', auth, async (req, res) => {
-    try {
-        const { subject } = req.decoded
-        const stats = await statsDB.getUserStats(subject)
-        res.status(200).json(stats)  
-    } catch (error) {
-        console.log(req.decoded.subject)
-        res.status(500).json({
-            message: 'Error retrieving data'
-        })
-    }
-})
-
 router.post('/', auth, async (req, res) => {
     try {
         const { subject } = req.decoded 
@@ -28,6 +15,24 @@ router.post('/', auth, async (req, res) => {
     } catch (error) {
         res.status(500).json({
             message: 'Error adding new sleep stats'
+        })
+    }
+})
+
+router.get('/:id', auth, async (req, res) => {
+    try {
+        const { id } = req.params
+        const stats = await statsDB.getUserStats(id)
+        if(stats.length > 0 ) {
+            res.status(200).json(stats)  
+        } else {
+            res.status(404).json({
+                message: 'No sleep stats were found'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error retrieving data'
         })
     }
 })
@@ -92,6 +97,7 @@ router.get('/:id/limit/:limit/order/:order', auth, async (req, res) => {
         const stats = await statsDB.getLimitOrder(id, limit, order) 
         res.status(200).json(stats)
     } catch (error) {
+        console.log(req.params)
         res.status(500).json({
             message: 'Error retreiving sleep stats by limits and order'
         })
@@ -101,12 +107,12 @@ router.get('/:id/limit/:limit/order/:order', auth, async (req, res) => {
 router.get('/:id/annual/:year', auth, async (req, res) => {
     try {
         const { id, year } = req.params
-        const stats = await statsDB.getAnnual(id, year)
-        if(stats.length > 0) {
+        const stats = await statsDB.getAnnual(id, year)            
+        if(stats.length > 0 ){
             res.status(200).json(stats)
         } else {
             res.status(404).json({
-                message: 'No sleep stats found'
+                message: 'There are no current stats of sleep of that specific year'
             })
         }
     } catch (error) {
@@ -135,7 +141,7 @@ router.put('/', auth, async (req, res) => {
     }
 })
 
-router.delete('/:id/:date', auth, async (req, res) => {
+router.delete('/:id/date/:date', auth, async (req, res) => {
     try {
         const { id, date } = req.params
         const stat = await statsDB.remove(id, date)
