@@ -7,7 +7,9 @@ module.exports = {
     remove,
     getByDate,
     getByMonth,
-    getByYear
+    getByYear,
+    getLimitOrder,
+    getAnnual
 }
 
 function add(sleepStats) {
@@ -43,8 +45,26 @@ function getByYear (id, year) {
             year: year 
         })
 }
+
+function getLimitOrder (id, limit, order) {
+    return db('sleep_stats')
+        .where({
+            user_id: id
+        })
+        .limit(limit)
+        .order('date', order)
+}
+
+function getAnnual (id, year) {
+    return db('sleep_stats')
+        .where({
+            user_id: id,
+            year: year,
+        })
+        .andWhere('sleep_emotion', '>', 3)
+}
  
-function update(stats, id, date) {
+function update(id, stats, date) {
     return db('sleep_stats')
         .where({
             user_id: id, 

@@ -86,5 +86,74 @@ router.get('/:id/year/:year', auth, async (req, res) => {
     }
 })
 
+router.get('/:id/limit/:limit/order/:order', auth, async (req, res) => {
+    try {
+        const { id, limit, order } = req.params
+        const stats = await statsDB.getLimitOrder(id, limit, order) 
+        res.status(200).json(stats)
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error retreiving sleep stats by limits and order'
+        })
+    }
+})
+
+router.get('/:id/annual/:year', auth, async (req, res) => {
+    try {
+        const { id, year } = req.params
+        const stats = await statsDB.getAnnual(id, year)
+        if(stats.length > 0) {
+            res.status(200).json(stats)
+        } else {
+            res.status(404).json({
+                message: 'No sleep stats found'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error retrieving annual sleep stats'
+        })
+    }
+})
+
+router.put('/', auth, async (req, res) => {
+    try {
+        const { subject } = req.decoded
+        const updatedStat = req.body
+        const stat = await statsDB.update(subject, updatedStat)
+        if(updatedStat) {
+            res.status(200).json(stat)
+        } else {
+            res.status(400).json({
+                message: 'Missing a required input'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error updating sleep stats'
+        })
+    }
+})
+
+router.delete('/:id/:date', auth, async (req, res) => {
+    try {
+        const { id, date } = req.params
+        const stat = await statsDB.remove(id, date)
+        if(stat) {
+            res.status(204).json({
+                message: 'Sleep stats successfully removed'
+            })
+        } else {
+            res.status(400).json({
+                message: 'Sleeps stats with the specified date does not exist'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error deleting sleep stats'
+        })
+    }
+})
+
 
 module.exports = router

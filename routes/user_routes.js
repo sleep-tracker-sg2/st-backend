@@ -28,22 +28,22 @@ route.post('/login', async (req, res) => {
    try {
     let { username, password } = req.body
       await userDB.findBy({username})
-     .first()
-     .then(user => {
-        if(user){
-            if(bcrypt.compareSync(password, user.password)){
-               const token = generateToken(user)
-               res.status(200).json({
-                   message: `Hello ${user.username}`,
-                   token
-               })
+        .first()
+        .then(user => {
+            if(user){
+                if(bcrypt.compareSync(password, user.password)){
+                const token = generateToken(user)
+                res.status(200).json({
+                    message: `Hello ${user.username}`,
+                    token
+                })
+                }
+            }else{
+                res.status(401).json({
+                    message: "The credentials are not valid"
+            })
             }
-        }else{
-            res.status(401).json({
-                message: "The credentials are not valid"
-          })
-        }
-    })
+        })
    } catch (error) {
        res.status(500).json(error)
    }
