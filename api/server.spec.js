@@ -22,6 +22,4 @@ describe('server testing', () => {
         const {msg}=res.body;
         expect(msg).toBe('Interesting. You\'re afraid of insects and women. Ladybugs must render you catatonic.');
     });
-
-   
-    });
+});

@@ -17,6 +17,7 @@ server.use(cors());
 // Router Links
 const userRouter = require('../routes/user_routes');
 const statsRouter = require('../routes/sleep_stats_routes')
+const actionsRouter = require('../routes/sleep_actions_routes')
 
 //server sanity check
 server.get('/', (req,res) => {
@@ -25,6 +26,7 @@ server.get('/', (req,res) => {
 
 server.use('/', userRouter)
 server.use('/sleep-stats', statsRouter)
+server.use('/sleep-actions', actionsRouter)
 
 //don't forget to export module here
 module.exports=server;
