@@ -1,6 +1,5 @@
 const db = require('../.database/dbConfig');
 
-
 module.exports = {
    add,
    find,
@@ -8,7 +7,6 @@ module.exports = {
    findBy,
    update
 }
-
 
 function add(user){
   return db('user')

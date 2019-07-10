@@ -5,8 +5,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = require('../auth/secrets');
 
-
-
 route.post('/registration', async (req, res) => {
     try {
         // get the user from the form
@@ -27,7 +25,6 @@ route.post('/registration', async (req, res) => {
 })
 
 route.post('/login', async (req, res) => {
-
    try {
     let { username, password } = req.body
       await userDB.findBy({username})
@@ -36,10 +33,9 @@ route.post('/login', async (req, res) => {
         if(user){
             if(bcrypt.compareSync(password, user.password)){
                const token = generateToken(user)
-               req.headers.authorization = token;
-               console.log(req.headers.authorization)
                res.status(200).json({
-                   message: `Hello ${user.username}`
+                   message: `Hello ${user.username}`,
+                   token
                })
             }
         }else{
@@ -53,7 +49,6 @@ route.post('/login', async (req, res) => {
    }
 })
 
-
 function generateToken(user){
     const payload = {
         subject: user.id,
@@ -64,9 +59,5 @@ function generateToken(user){
    }
    return jwt.sign(payload, secret.jwtSecret, options);
 }
-
-
-
-
 
 module.exports = route;
