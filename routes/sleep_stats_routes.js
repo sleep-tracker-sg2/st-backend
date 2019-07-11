@@ -60,7 +60,6 @@ router.get('/:id', auth, async (req, res) => {
         } else {
             res.status(404).json({
                 message: 'No sleep stats were found',
-                stats
             })
         }
     } catch ({ message }) {

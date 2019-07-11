@@ -9,17 +9,21 @@ route.post('/registration', async (req, res) => {
     try {
         // get the user from the form
         let user = req.body;
-        
-        // hash user
-        const hash = bcrypt.hashSync(user.password, 10)
-        user.password = hash;
-        
-        const hashPwd  = await userDB.add(user)
-        res.status(201).json(hashPwd)
+        const checkUser = await userDB.findByUsername(user.username)
+        if(checkUser.length > 0) {
+            res.status(400).json({
+                message: 'Username already exists'
+            })
+        } else {
+            const hash = bcrypt.hashSync(user.password, 10)
+            user.password = hash;
+            const hashPwd  = await userDB.add(user)
+            res.status(201).json({hashPwd})
+        }
 
-    } catch (error) {
+    } catch ({message}) {
         res.status(500).json({
-            message: "Registration error", error
+            message
         })
     }
 })
@@ -44,10 +48,9 @@ route.post('/login', async (req, res) => {
             })
             }
         })
-   } catch (error) {
-       console.log(req.body)
+   } catch ({message}) {
        res.status(500).json({
-           error
+           message
        })
    }
 })

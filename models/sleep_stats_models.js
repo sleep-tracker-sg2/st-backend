@@ -10,7 +10,7 @@ module.exports = {
     getByYear,
     getLimitOrder,
     getAnnual,
-    getStat
+    getStat,
 }
 
 function add(tbl, item) {
@@ -18,7 +18,6 @@ function add(tbl, item) {
     return db(tbl)
         .insert(item)
 }
-
 
 function getStat(id) {
     return db('sleep_stats')
