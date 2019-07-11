@@ -2,6 +2,8 @@
 exports.up = function(knex) {
   return knex.schema.createTable('sleep_stats', table => {
     table
+        .increments()
+    table
         .integer('user_id')
         .notNullable()
         .unsigned()
@@ -12,7 +14,6 @@ exports.up = function(knex) {
     table
         .string('date',128)
         .notNullable()
-        .unique();    
     table
         .string('start_sleep',128)
         .notNullable();
@@ -20,23 +21,23 @@ exports.up = function(knex) {
         .string('end_sleep')
         .notNullable();
     table
-        .integer('waking_emotion')
+        .integer('emotions')
         .notNullable()
         .unsigned()
         .references('id')
         .inTable('sleep_emotions')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
+    // table
+    //     .integer('sleep_emotion')
+    //     .notNullable()
+    //     .unsigned()
+    //     .references('id')
+    //     .inTable('sleep_emotions')
+    //     .onDelete('CASCADE')
+    //     .onUpdate('CASCADE');
     table
-        .integer('sleep_emotion')
-        .notNullable()
-        .unsigned()
-        .references('id')
-        .inTable('sleep_emotions')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
-    table
-        .integer('month')
+        .integer('m')
         .notNullable()
         .unsigned()
         .references('id')
@@ -44,23 +45,23 @@ exports.up = function(knex) {
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
     table
-        .integer('year')  
+        .integer('y')  
+        .notNullable()
+        .unsigned()
+        .references('id')
+        .inTable('sleep_year')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
+    table
+        .integer('d')
         .notNullable()
         .unsigned()
         .references('id')
         .inTable('sleep_day')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
-    table
-        .integer('day')
-        .notNullable()
-        .unsigned()
-        .references('id')
-        .inTable('sleep_day')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
-    table
-        .primary(['user_id', 'date']);    
+    // table
+        // .primary(['user_id', 'date']);    
   });
 };
 

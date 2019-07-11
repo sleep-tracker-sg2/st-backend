@@ -1,16 +1,18 @@
 
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('sleep_year', table => {
+        // table
+            // .integer('year')
+            // .notNullable()
+            // .unique()
+            // .unsigned();
         table
-            .integer('year')
-            .notNullable()
-            .unique()
-            .unsigned();
+            .increments()
         table
             .string('sleepYear', 255)
             .notNullable();    
-        table
-            .primary(['year']);    
+        // table
+            // .primary(['year']);    
     });
 };
 

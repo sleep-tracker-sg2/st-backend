@@ -9,44 +9,63 @@ module.exports = {
     getByMonth,
     getByYear,
     getLimitOrder,
-    getAnnual
+    getAnnual,
+    getStat
 }
 
-function add(sleepStats) {
-    return db('sleep_stats')
-        .insert(sleepStats)
+function add(tbl, item) {
+    console.log(tbl)
+    return db(tbl)
+        .insert(item)
 }
 
-function getUserStats (id) {
+
+function getStat(id) {
     return db('sleep_stats')
-        .where({user_id: id})
+        .join('sleep_month', 'sleep_stats.m', 'sleep_month.id')
+        .join('sleep_year', 'sleep_stats.y', 'sleep_year.id')
+        .join('sleep_emotions', 'sleep_stats.emotions', 'sleep_emotions.id')
+        .join('sleep_day', 'sleep_stats.d', 'sleep_day.id')
+        .where('sleep_stats.id', id)
+        .first()
 }
 
-function getByDate (id, date) {
+function getUserStats(id) {
     return db('sleep_stats')
-        .where({ 
+        .join('sleep_month', 'sleep_stats.m', 'sleep_month.id')
+        .join('sleep_year', 'sleep_stats.y', 'sleep_year.id')
+        .join('sleep_emotions', 'sleep_stats.emotions', 'sleep_emotions.id')
+        .join('sleep_day', 'sleep_stats.d', 'sleep_day.id')
+        .where({ user_id: id })
+}
+
+function getByDate(id, date) {
+    return db('sleep_stats')
+        .where({
             user_id: id,
-            date: date 
+            date: date
         })
 }
 
-function getByMonth (id, month) {
+function getByMonth(id, month) {
     return db('sleep_stats')
-        .where({ 
+        .join('sleep_month', 'sleep_stats.m', 'sleep_month.id')
+        .where({
             user_id: id,
-            month: month 
+            month: month
         })
 }
 
-function getByYear (id, year) {
+function getByYear(id, year) {
     return db('sleep_stats')
-        .where({ 
+        .join('sleep_year', 'sleep_stats.y', 'sleep_year.id')
+        .where({
             user_id: id,
-            year: year 
+            sleepYear: year
         })
 }
 
-function getLimitOrder (id, limit, order) {
+function getLimitOrder(id, limit, order) {
     return db('sleep_stats')
         .where({
             user_id: id
@@ -55,34 +74,24 @@ function getLimitOrder (id, limit, order) {
         .orderBy('date', order)
 }
 
-function getAnnual (id, year) {
+function getAnnual(id, year) {
     return db('sleep_stats')
+        .join('sleep_emotions', 'sleep_stats.emotions', 'sleep_emotions.id')
+        .join('sleep_year', 'sleep_stats.y', 'sleep_year.id')
         .where({
             user_id: id,
-            year: year,
+            sleepYear: year,
         })
-        .andWhere('sleep_emotion', '>', 3)
-}
- 
-function update(id, stats) {
-    return db('sleep_stats')
-        .where({
-            user_id: id, 
-            date: date
-        })
-        .update(stats)
-        // .then(() => {
-        //     return db('sleep_stats')
-        //         .where({date: date})
-        //         .first()
-        // })
 }
 
-function remove (id, date) {
-    return db('sleep_stats')
-        .where({
-            user_id: id, 
-            date: date, 
-        })
+function update(tbl, id, item) {
+    return db(tbl)
+        .where({ id })
+        .update(item)
+}
+
+function remove(tbl, id) {
+    return db(tbl)
+        .where({id})
         .del()
 }

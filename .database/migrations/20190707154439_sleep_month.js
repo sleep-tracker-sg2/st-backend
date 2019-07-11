@@ -8,5 +8,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExist('sleep_month');
+  return knex.schema.dropTableIfExists('sleep_month');
 };
