@@ -18,7 +18,7 @@ route.post('/registration', async (req, res) => {
             const hash = bcrypt.hashSync(user.password, 10)
             user.password = hash;
             const hashPwd  = await userDB.add(user)
-            res.status(201).json({hashPwd})
+            res.status(201).json(hashPwd)
         }
 
     } catch ({message}) {
