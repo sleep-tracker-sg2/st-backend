@@ -2,11 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const jwtKey = require('./secrets')
 
-module.exports = {
-    auth
-}
-
-function auth(req, res, next) {
+module.exports = (req, res, next) => {
     const token = req.headers.authorization;
 
     if(token){
@@ -15,7 +11,15 @@ function auth(req, res, next) {
                 return res.status(401).json(err) 
             } else {
                 req.decoded = decoded;
-                next();
+                // checks params id with token user id if not equal then wrong user
+                if(req.params.id == req.decoded.subject || req.params.id === undefined) {
+                    next()
+                } else {
+                    res.status(401).json({
+                        message: 'Restricted path'
+                    })
+                }
+                // next();
             }
         })
     } else {
