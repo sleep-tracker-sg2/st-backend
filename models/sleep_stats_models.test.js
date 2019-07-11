@@ -1,4 +1,4 @@
-const db = require('../.database/dbConfig');
+const db = require('../database/dbConfig');
 
 const stats = require('../models/sleep_stats_models');
 
