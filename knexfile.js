@@ -36,10 +36,10 @@ module.exports = {
     client: 'pg',
     connection: dbConnection,
     migration: {
-      filename: "./database/migrations"
+      filename: "./.database/migrations"
     },
     seeds: {
-      filename: "./database/seeds"
+      filename: "./.database/seeds"
     }
   }
 }; 
