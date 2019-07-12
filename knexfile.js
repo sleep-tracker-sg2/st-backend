@@ -33,7 +33,7 @@ module.exports = {
   production: {
     client: 'pg',
     connection: dbConnection,
-    migration: {
+    migrations: {
       tableName: 'knex_migrations',
       directory: "./database/migrations"
     },
