@@ -1,9 +1,7 @@
 // Update with your config settings.
-
 const dbConnection = process.env.DATABASE_URL
 
 module.exports = {
-
   development: {
     client: 'sqlite3',
     connection: {
@@ -36,11 +34,11 @@ module.exports = {
     client: 'pg',
     connection: dbConnection,
     migration: {
-      filename: "./database/migrations"
+      tableName: 'knex_migrations',
+      directory: "./database/migrations"
     },
     seeds: {
-      filename: "./database/seeds"
+      directory: "./database/seeds"
     }
   }
-}; 
-  
+}
